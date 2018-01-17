@@ -35,7 +35,7 @@ public class EarthquakeCityMap extends PApplet {
 	private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
-	private static final boolean offline = false;
+	private static final boolean offline = true;
 	
 	/** This is where to find the local tiles, for working without an Internet connection */
 	public static String mbTilesString = "blankLight-1-3.mbtiles";
@@ -111,7 +111,7 @@ public class EarthquakeCityMap extends PApplet {
 	    }
 
 	    // could be used for debugging
-	    printQuakes();
+	    //printQuakes();
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
@@ -141,17 +141,25 @@ public class EarthquakeCityMap extends PApplet {
 		textSize(12);
 		text("Earthquake Key", 50, 75);
 		
-		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
-		fill(color(255, 255, 0));
-		ellipse(50, 175, 10, 10);
-		fill(color(0, 0, 255));
-		ellipse(50, 225, 5, 5);
+		//fill(color(255, 0, 0));
+		//ellipse(50, 125, 15, 15);
+		//fill(color(255, 255, 0));
+		//ellipse(50, 175, 10, 10);
+		//fill(color(0, 0, 255));
+		//ellipse(50, 225, 5, 5);
+		fill(color(65,237,31));
+		triangle(50,120,45,130,55,130);
+		noFill();
+		ellipse(50,175,15,15);
+		rect(42,225,15,15);
 		
 		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
-		text("4.0+ Magnitude", 75, 175);
-		text("Below 4.0", 75, 225);
+		//text("5.0+ Magnitude", 75, 125);
+		//text("4.0+ Magnitude", 75, 175);
+		//text("Below 4.0", 75, 225);
+		text("City Marker", 75,125);
+		text("Land Quake",75,175);
+		text("Ocean Quake",75,225);
 	}
 
 	
@@ -168,12 +176,13 @@ public class EarthquakeCityMap extends PApplet {
 		// country in m.  Notice that isInCountry takes a PointFeature
 		// and a Marker as input.  
 		// If isInCountry ever returns true, isLand should return true.
+		
 		for (Marker m : countryMarkers) {
 			// TODO: Finish this method using the helper method isInCountry
-			
-		}
-		
-		
+			if(isInCountry(earthquake,m)) {
+				return true;
+			}
+		}	
 		// not inside any country
 		return false;
 	}
@@ -184,8 +193,27 @@ public class EarthquakeCityMap extends PApplet {
 	 * ...
 	 * OCEAN QUAKES: numOceanQuakes
 	 * */
+	
+	/*
 	private void printQuakes() 
 	{
+		for(Marker cm:countryMarkers) {
+			String countryname=(String)cm.getProperty("name");
+			int quakecount=0;
+			for(Marker em:quakeMarkers) {
+				EarthquakeMarker em1=(EarthquakeMarker)em;
+				if(em1.isOnLand()) {
+					LandQuakeMarker em2=(LandQuakeMarker)em1;
+					String country=(String)em2.getProperty("country");
+					if(country==countryname) {
+						quakecount++;
+					}
+				}
+				
+			}
+			System.out.println(countryname+" : "+quakecount);
+		}
+		
 		// TODO: Implement this method
 		// One (inefficient but correct) approach is to:
 		//   Loop over all of the countries, e.g. using 
@@ -212,7 +240,7 @@ public class EarthquakeCityMap extends PApplet {
 		//        String country = (String)m.getProperty("country");
 		
 		
-	}
+	}*/
 	
 	
 	
