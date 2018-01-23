@@ -147,6 +147,26 @@ public class EarthquakeCityMap extends PApplet {
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
 		// TODO: Implement this method
+		//这样没有设置lastSelected的话，显示的就不会消失了
+		//for (Marker item:markers) {
+		//	if(item.isInside(this.map, mouseX, mouseY)) {
+		//		item.setSelected(true);
+		//	}
+		//}
+		
+		if(lastSelected!=null) {
+			return;
+		}
+		else {
+			for(Marker item:markers) {
+				CommonMarker m=(CommonMarker)item;
+				if(m.isInside(this.map, mouseX, mouseY)) {
+					lastSelected=m;
+					item.setSelected(true);
+					return;
+				}
+			}
+		}
 	}
 	
 	/** The event handler for mouse clicks
