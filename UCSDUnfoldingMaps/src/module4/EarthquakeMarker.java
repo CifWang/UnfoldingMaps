@@ -14,6 +14,8 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 {
 	
 	// Did the earthquake occur on land?  This will be set by the subclasses.
+	//SimplePointMarker m=new Marker();
+	//Marker m=new OceanQuakeMarker(feature);
 	protected boolean isOnLand;
 
 	// SimplePointMarker has a field "radius" which is inherited
