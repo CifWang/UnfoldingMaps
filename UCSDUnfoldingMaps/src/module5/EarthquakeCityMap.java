@@ -35,7 +35,7 @@ public class EarthquakeCityMap extends PApplet {
 	private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
-	private static final boolean offline = false;
+	private static final boolean offline = true;
 	
 	/** This is where to find the local tiles, for working without an Internet connection */
 	public static String mbTilesString = "blankLight-1-3.mbtiles";
@@ -74,6 +74,7 @@ public class EarthquakeCityMap extends PApplet {
 			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
 		    //earthquakesURL = "2.5_week.atom";
 		}
+		// so our application would listen for user events(like pressing a key, etc.)
 		MapUtils.createDefaultEventDispatcher(this, map);
 		
 		
@@ -146,6 +147,26 @@ public class EarthquakeCityMap extends PApplet {
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
 		// TODO: Implement this method
+		//这样没有设置lastSelected的话，显示的就不会消失了
+		//for (Marker item:markers) {
+		//	if(item.isInside(this.map, mouseX, mouseY)) {
+		//		item.setSelected(true);
+		//	}
+		//}
+		
+		if(lastSelected!=null) {
+			return;
+		}
+		else {
+			for(Marker item:markers) {
+				CommonMarker m=(CommonMarker)item;
+				if(m.isInside(this.map, mouseX, mouseY)) {
+					lastSelected=m;
+					item.setSelected(true);
+					return;
+				}
+			}
+		}
 	}
 	
 	/** The event handler for mouse clicks
