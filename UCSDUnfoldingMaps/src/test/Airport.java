@@ -12,7 +12,7 @@ public class Airport {
 	public static String findAirportCode(String toFind, Airport[] airports) {
 		for(int i=0;i<airports.length;i++) {
 			if(airports[i].getCity().equals(toFind)) {
-				return airports[i].getCity();
+				return airports[i].getCode();
 			}
 		}
 		return null;//这个一开始没有，报错，因为如果找不到，就不会返回，所以在返回值那里报错
