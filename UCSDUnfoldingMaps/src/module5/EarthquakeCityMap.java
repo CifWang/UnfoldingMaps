@@ -106,7 +106,7 @@ public class EarthquakeCityMap extends PApplet {
 	    }
 
 	    // could be used for debugging
-	    printQuakes();
+	   // printQuakes();
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
@@ -180,6 +180,41 @@ public class EarthquakeCityMap extends PApplet {
 		// TODO: Implement this method
 		// Hint: You probably want a helper method or two to keep this code
 		// from getting too long/disorganized
+		if(lastClicked!=null) {
+			this.unhideMarkers();
+			return;
+		}
+		else {
+			for(Marker marker:cityMarkers) {
+				CommonMarker m=(CommonMarker)marker;
+				if(m.isInside(this.map, mouseX, mouseY)) {
+					lastClicked=m;
+					for(Marker item:cityMarkers) {
+						if(item!=m) {
+							item.setHidden(true);
+						}
+					}
+					for(Marker item:quakeMarkers) {
+						item.setHidden(true);
+					}
+				}
+			}
+			for(Marker marker:quakeMarkers) {
+				CommonMarker m=(CommonMarker)marker;
+				if(m.isInside(this.map, mouseX, mouseY)) {
+					lastClicked=m;
+					for(Marker item:quakeMarkers) {
+						if(item!=m) {
+							item.setHidden(true);
+						}
+					}
+					for(Marker item:cityMarkers) {
+						item.setHidden(true);
+					}
+				}
+			}
+		}
+		
 	}
 	
 	
@@ -278,7 +313,7 @@ public class EarthquakeCityMap extends PApplet {
 	}
 	
 	// prints countries with number of earthquakes
-	private void printQuakes() {
+	/**private void printQuakes() {
 		int totalWaterQuakes = quakeMarkers.size();
 		for (Marker country : countryMarkers) {
 			String countryName = country.getStringProperty("name");
@@ -298,7 +333,7 @@ public class EarthquakeCityMap extends PApplet {
 			}
 		}
 		System.out.println("OCEAN QUAKES: " + totalWaterQuakes);
-	}
+	}*/
 	
 	
 	

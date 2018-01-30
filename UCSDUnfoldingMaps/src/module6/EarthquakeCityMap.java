@@ -3,6 +3,7 @@ package module6;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.*;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -36,7 +37,7 @@ public class EarthquakeCityMap extends PApplet {
 	private static final long serialVersionUID = 1L;
 
 	// IF YOU ARE WORKING OFFILINE, change the value of this variable to true
-	private static final boolean offline = false;
+	private static final boolean offline = true;
 	
 	/** This is where to find the local tiles, for working without an Internet connection */
 	public static String mbTilesString = "blankLight-1-3.mbtiles";
@@ -85,7 +86,7 @@ public class EarthquakeCityMap extends PApplet {
 		//earthquakesURL = "test2.atom";
 		
 		// Uncomment this line to take the quiz
-		//earthquakesURL = "quiz2.atom";
+		earthquakesURL = "quiz2.atom";
 		
 		
 		// (2) Reading in earthquake data and geometric properties
@@ -116,13 +117,15 @@ public class EarthquakeCityMap extends PApplet {
 	    }
 
 	    // could be used for debugging
-	    printQuakes();
+	    //printQuakes();
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
+	    System.out.println(quakeMarkers.size());
+	    sortAndPrint(20);
 	    
 	    
 	}  // End setup
@@ -139,6 +142,40 @@ public class EarthquakeCityMap extends PApplet {
 	// TODO: Add the method:
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
+	private void sortAndPrint(int numToPrint) {
+		
+		/**
+		for(EarthquakeMarker item:quakeArray) {
+			System.out.println(item);
+		}*/
+		List<EarthquakeMarker> quakeList=new ArrayList();
+		for(Marker item:quakeMarkers) {
+			EarthquakeMarker item_E=(EarthquakeMarker)item;
+			quakeList.add(item_E);
+		}
+		Collections.sort(quakeList);
+		EarthquakeMarker[] quakeArray=new EarthquakeMarker[quakeMarkers.size()];
+		quakeList.toArray(quakeArray);
+		/**
+		for(EarthquakeMarker item:quakeArray) {
+			System.out.println(item.getMagnitude());
+		}
+		System.out.println(quakeMarkers.size());
+		System.out.println(quakeList.size());
+		System.out.println(quakeArray.length);*/
+		
+		if(numToPrint<quakeArray.length) {
+			for(int i=0;i<numToPrint;i++) {
+				System.out.print(quakeArray[i].getMagnitude()+" ");
+			}
+		}
+		else {
+			for(int i=0;i<quakeArray.length;i++) {
+				System.out.print(quakeArray[i].getMagnitude()+" ");
+			}
+		}
+	}
+	
 	
 	/** Event handler that gets called automatically when the 
 	 * mouse moves.
