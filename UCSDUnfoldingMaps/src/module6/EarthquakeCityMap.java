@@ -124,7 +124,8 @@ public class EarthquakeCityMap extends PApplet {
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
-	    sortAndPrint(quakeMarkers.size());
+	    System.out.println(quakeMarkers.size());
+	    sortAndPrint(20);
 	    
 	    
 	}  // End setup
@@ -142,28 +143,35 @@ public class EarthquakeCityMap extends PApplet {
 	//   private void sortAndPrint(int numToPrint)
 	// and then call that method from setUp
 	private void sortAndPrint(int numToPrint) {
+		
+		/**
+		for(EarthquakeMarker item:quakeArray) {
+			System.out.println(item);
+		}*/
+		List<EarthquakeMarker> quakeList=new ArrayList();
+		for(Marker item:quakeMarkers) {
+			EarthquakeMarker item_E=(EarthquakeMarker)item;
+			quakeList.add(item_E);
+		}
+		Collections.sort(quakeList);
 		EarthquakeMarker[] quakeArray=new EarthquakeMarker[quakeMarkers.size()];
-		quakeMarkers.toArray(quakeArray);
-		if(numToPrint<quakeMarkers.size()) {
-			EarthquakeMarker[] quakeNumArray=new EarthquakeMarker[numToPrint];
-			List<EarthquakeMarker> quakeNumList=new ArrayList();
+		quakeList.toArray(quakeArray);
+		/**
+		for(EarthquakeMarker item:quakeArray) {
+			System.out.println(item.getMagnitude());
+		}
+		System.out.println(quakeMarkers.size());
+		System.out.println(quakeList.size());
+		System.out.println(quakeArray.length);*/
+		
+		if(numToPrint<quakeArray.length) {
 			for(int i=0;i<numToPrint;i++) {
-				quakeNumArray[i]=quakeArray[i];
-				quakeNumList.add(quakeNumArray[i]);
-			}
-			Collections.sort(quakeNumList);
-			for(EarthquakeMarker item:quakeNumList) {
-				System.out.print(item.getMagnitude()+" ");
+				System.out.print(quakeArray[i].getMagnitude()+" ");
 			}
 		}
 		else {
-			List<EarthquakeMarker> EarthquakeList=new ArrayList();
 			for(int i=0;i<quakeArray.length;i++) {
-				EarthquakeList.add(quakeArray[i]);
-			}
-			Collections.sort(EarthquakeList);
-			for(EarthquakeMarker item:EarthquakeList) {
-				System.out.print(item.getMagnitude()+" ");
+				System.out.print(quakeArray[i].getMagnitude()+" ");
 			}
 		}
 	}
